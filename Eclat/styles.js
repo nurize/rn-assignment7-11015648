@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 20,
     width: '100%',
-    paddingBottom: 5, 
+    paddingBottom: 5,
   },
   homeHeader: {
     flexDirection: 'row',
@@ -18,15 +18,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%'
-  }, 
+  },
   headerIcon: {
-    width: 35, 
+    width: 35,
     height: 35,
     paddingTop: 10,
-  }, 
+  },
   subHeaderText: {
-    flexDirection: 'row', 
-    gap: 5, 
+    flexDirection: 'row',
+    gap: 5,
     paddingLeft: 10,
   },
   iconBackground: {
@@ -36,37 +36,53 @@ const styles = StyleSheet.create({
     height: 55
   },
   galleryContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
     width: '50%',
-    marginRight: 10,
+    padding: 5,
+  },
+  galleryItemContainer: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
   },
   galleryItem: {
-    width: '118%',
-    height: '120%',
-    flex: 1,
-    padding: 5,
-    marginBottom: 37,
+    width: '100%',
+    height: 200,
+    justifyContent: 'flex-end',
   },
   addButton: {
-    alignSelf: 'flex-end', 
-    marginTop: 180,  
-    width: 30, 
+    alignSelf: 'flex-end',
+    width: 30,
     height: 30,
-    marginLeft: 80,
+    margin: 5,
   },
   itemName: {
     fontSize: 20,
-    letterSpacing: 1
-  }, 
+    letterSpacing: 1,
+    marginVertical: 5,
+  },
   itemDescription: {
     fontSize: 15,
     color: '#708090',
     fontWeight: '500',
-  }, 
+  },
   itemPrice: {
     fontSize: 24,
-    color: '#F08080'  
+    color: '#F08080'
+  },
+  drawerUserNm: {
+    fontSize: 26,
+    textTransform: 'uppercase',
+    paddingLeft: 25,
+    paddingBottom: 10,
+    fontWeight: '200',
+    letterSpacing: 6,
+  },
+  drawerLine: {
+    borderColor: '#F08080',
+    borderWidth: 1,
+    width: '45%',
+    marginLeft: 50,
   },
 });
 

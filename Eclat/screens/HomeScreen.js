@@ -1,6 +1,6 @@
-import { Text, View, Image, StatusBar, ImageBackground, Pressable, SafeAreaView, } from 'react-native';
+import { Text, View, Image, StatusBar, ImageBackground, Pressable, SafeAreaView } from 'react-native';
 import styles from '../styles';
-import CustomDrawerButton from '../components/CustomDrawerButton';
+import OpenDrawerButton from '../components/OpenDrawerButton';
 import { FlatList } from 'react-native-gesture-handler';
 import getImage from '../utils/ImageLoader';
 import { useState, useContext } from 'react';
@@ -14,21 +14,19 @@ const Home = () => {
   const ShoppingBag = require('../assets/shopping-bag.png');
   const ListView = require('../assets/Listview.png');
   const Filter = require('../assets/Filter.png');
-  const { Gallery, setCart, cart, disabled, } = useContext(GalleryContext);
+  const { Gallery, setCart, cart } = useContext(GalleryContext);
   const addButton = require('../assets/add_circle.png');
   const navigation = useNavigation();
 
   const [numColumns, setNumColumns] = useState(2);
-  const [isParentPressed, setIsParentPressed] = useState(null);
 
   const handlePress = (ItemId) => {
-    setIsParentPressed(ItemId);
-    navigation.navigate("Details", {id: ItemId});
+    navigation.navigate("Details", { id: ItemId });
   }
-  
-  const  handleAddToCart = (item) => {
+
+  const handleAddToCart = (item) => {
     const cartItem = {
-      id : cart.length + 1,
+      id: cart.length + 1,
       itemId: item.id,
       name: item.name,
       price: item.price,
@@ -40,7 +38,7 @@ const Home = () => {
   }
 
   const storeCart = async () => {
-    try{
+    try {
       const cartJson = JSON.stringify(cart);
       await AsyncStorage.setItem('cart', cartJson);
     } catch (error) {
@@ -50,58 +48,57 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={'dark-content'}/>
+      <StatusBar barStyle={'dark-content'} />
       <View style={styles.homeHeader}>
-        <CustomDrawerButton style={styles.customDrawerButton}/>
-        <Image  source={Logo}/>
-        <View style={{flexDirection: 'row', gap: 20}}>
+        <OpenDrawerButton style={styles.customDrawerButton} />
+        <Image source={Logo} />
+        <View style={{ flexDirection: 'row', gap: 20 }}>
           <Pressable>
-            <Image style={styles.headerIcon} source={SearchButton}/>
+            <Image style={styles.headerIcon} source={SearchButton} />
           </Pressable>
           <Pressable onPress={() => navigation.navigate("Cart")}>
-            <Image style={styles.headerIcon} source={ShoppingBag}/> 
+            <Image style={styles.headerIcon} source={ShoppingBag} />
           </Pressable>
         </View>
       </View>
       <View style={[
-        styles.homeHeader, 
-        {columnGap: 45, marginRight: 20}
+        styles.homeHeader,
+        { columnGap: 45, marginRight: 20 }
       ]}>
-        <Text style={{fontSize: 26, padding: 10, letterSpacing: 5}}>OUR STORY</Text>
+        <Text style={{ fontSize: 26, padding: 10, letterSpacing: 5 }}>OUR STORY</Text>
         <View style={styles.subHeaderText}>
           <View style={styles.iconBackground}>
-            <Image style={{margin: 10, width: 30, height: 30,}} source={ListView}/>
+            <Image style={{ margin: 10, width: 30, height: 30, }} source={ListView} />
           </View>
           <View style={styles.iconBackground}>
-            <Image style={[styles.headerIcon, {margin: 10}]} source={Filter}/>
+            <Image style={[styles.headerIcon, { margin: 10 }]} source={Filter} />
           </View>
         </View>
       </View>
-      <SafeAreaView style={{width: '100%', flex: 1}}>
-        <FlatList 
-        data={Gallery}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={numColumns}
-        renderItem={({item}) => {
-          return (
-            <View style={styles.galleryContainer}>
-              <View>
-                <ImageBackground style={styles.galleryItem} source={getImage(item.id)}>
-                  <Pressable onPress={() => handleAddToCart(item)}> 
-                    {/* add item to the cart */}
-                    <Image style={styles.addButton}source={addButton}/>
+      <SafeAreaView style={{ width: '100%', flex: 1 }}>
+        <FlatList
+          data={Gallery}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={numColumns}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles.galleryContainer}>
+                <View style={styles.galleryItemContainer}>
+                  <ImageBackground style={styles.galleryItem} source={{ uri: item.image }}>
+                    <Pressable onPress={() => handleAddToCart(item)}>
+                      <Image style={styles.addButton} source={addButton} />
+                    </Pressable>
+                  </ImageBackground>
+                  <Pressable onPress={() => handlePress(item.id)}>
+                    <Text style={styles.itemName}>{item.title}</Text>
+                    <Text style={styles.itemDescription}>{item.category}</Text>
+                    <Text style={styles.itemPrice}>${item.price}</Text>
                   </Pressable>
-                </ImageBackground> 
-              <Pressable onPress={() => handlePress(item.id)}>
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemDescription}>{item.description}</Text>
-                <Text style={styles.itemPrice}>{item.price}</Text>
-              </Pressable>
+                </View>
               </View>
-            </View>
-          )
-        }}
-      />
+            )
+          }}
+        />
       </SafeAreaView>
     </View>
   );

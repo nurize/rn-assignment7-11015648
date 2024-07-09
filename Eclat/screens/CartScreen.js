@@ -1,6 +1,6 @@
 import { Text, View, Image, FlatList, Pressable } from 'react-native';
 import styles from '../styles';
-import CustomDrawerButton from '../components/CustomDrawerButton';
+import CustomDrawerButton from '../components/OpenDrawerButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext, useState } from 'react';
 import { GalleryContext } from '../App';
@@ -50,7 +50,7 @@ const Cart = () => {
                       width: '100%', 
                       flex: 1,
                     }}>
-                    <Image source={getImage(item.itemId)} />
+                    <Image source={{uri: item.image}} />
                     <View style={
                       {
                         justifyContent: 'center', 

@@ -2,14 +2,13 @@ import React from "react";
 import { Pressable, Image } from "react-native";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 
-const CustomDrawerButton = () => {
+const OpenDrawerButton = () => {
   const navigation = useNavigation();
   const DrawerButton = require('../assets/Menu.png');
 
   const openDrawer = () => {
     navigation.dispatch(DrawerActions.openDrawer());
   }
-
 
   return (
     <Pressable onPress={openDrawer}>
@@ -18,4 +17,4 @@ const CustomDrawerButton = () => {
   )
 }
 
-export default CustomDrawerButton;
+export default OpenDrawerButton;

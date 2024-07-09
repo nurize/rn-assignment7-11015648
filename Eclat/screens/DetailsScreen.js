@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, Pressable, ScrollView } from 'react-native';
-import CustomDrawerButton from "../components/CustomDrawerButton";
+import CustomDrawerButton from "../components/OpenDrawerButton";
 import styles from "../styles";
 import getIcon from "../utils/IconLoader";
 import Precautions from "../data/previewData.json"; // Assuming Precautions is imported correctly
