@@ -2,7 +2,6 @@ import { Text, View, Image, StatusBar, ImageBackground, Pressable, SafeAreaView 
 import styles from '../styles';
 import OpenDrawerButton from '../components/OpenDrawerButton';
 import { FlatList } from 'react-native-gesture-handler';
-import getImage from '../utils/ImageLoader';
 import { useState, useContext } from 'react';
 import { GalleryContext } from '../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,8 +19,8 @@ const Home = () => {
 
   const [numColumns, setNumColumns] = useState(2);
 
-  const handlePress = (ItemId) => {
-    navigation.navigate("Details", { id: ItemId });
+  const handlePress = (ItemImage, itemDescription, itemTitle, itemPrice, ItemCategory) => {
+    navigation.navigate("Details", { image: ItemImage, description: itemDescription, name: itemTitle, price: itemPrice, category: ItemCategory });
   }
 
   const handleAddToCart = (item) => {
@@ -89,7 +88,7 @@ const Home = () => {
                       <Image style={styles.addButton} source={addButton} />
                     </Pressable>
                   </ImageBackground>
-                  <Pressable onPress={() => handlePress(item.id)}>
+                  <Pressable onPress={() => handlePress(item.image, item.description, item.title, item.price, item.category)}>
                     <Text style={styles.itemName}>{item.title}</Text>
                     <Text style={styles.itemDescription}>{item.category}</Text>
                     <Text style={styles.itemPrice}>${item.price}</Text>

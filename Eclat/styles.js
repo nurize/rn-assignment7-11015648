@@ -13,11 +13,10 @@ const styles = StyleSheet.create({
   },
   homeHeader: {
     flexDirection: 'row',
-    columnGap: 80,
     paddingVertical: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   headerIcon: {
     width: 35,
@@ -84,6 +83,36 @@ const styles = StyleSheet.create({
     width: '45%',
     marginLeft: 50,
   },
+  descriptionText: { 
+    color: '#808080', 
+    fontSize: 22, 
+    paddingHorizontal: 25, 
+    paddingVertical: 20 
+  }, 
+  precautionItem: {
+    flexDirection: 'row',
+    gap: 15,
+    marginHorizontal: 10
+  }, 
+  precautionText: {
+    fontSize: 20,
+    color: '#808080'
+  }, 
+  materialsTitle: {
+    fontSize: 28,
+    letterSpacing: 3,
+    paddingVertical: 10
+  },
+  detailsHeader: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+  }, 
+  description: { 
+    color: '#808080', 
+    fontSize: 22,  
+    paddingVertical: 20 ,
+    flexWrap: 'wrap'
+  }, 
 });
 
 export default styles;
