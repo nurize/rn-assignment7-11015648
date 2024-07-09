@@ -17,9 +17,10 @@ export default function App() {
   const Gallery = require('./data/galleryData.json');
   const ImageLoader = getImage();
   const [cart, setCart] = useState([]);
+  const [disabled, setDisabled] = useState(true)
 
   return (
-    <GalleryContext.Provider value={{Gallery, ImageLoader, cart, setCart}}>       
+    <GalleryContext.Provider value={{Gallery, ImageLoader, cart, disabled, setCart, setDisabled, }}>       
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName={"Store"}

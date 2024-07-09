@@ -1,4 +1,4 @@
-import { Text, View, Image, StatusBar, ImageBackground, Pressable, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, Image, StatusBar, ImageBackground, Pressable, SafeAreaView, } from 'react-native';
 import styles from '../styles';
 import CustomDrawerButton from '../components/CustomDrawerButton';
 import { FlatList } from 'react-native-gesture-handler';
@@ -14,23 +14,29 @@ const Home = () => {
   const ShoppingBag = require('../assets/shopping-bag.png');
   const ListView = require('../assets/Listview.png');
   const Filter = require('../assets/Filter.png');
-  const { Gallery, setCart, cart } = useContext(GalleryContext);
+  const { Gallery, setCart, cart, disabled, } = useContext(GalleryContext);
   const addButton = require('../assets/add_circle.png');
   const navigation = useNavigation();
 
   const [numColumns, setNumColumns] = useState(2);
+  const [isParentPressed, setIsParentPressed] = useState(null);
+
+  const handlePress = (ItemId) => {
+    setIsParentPressed(ItemId);
+    navigation.navigate("Details", {id: ItemId});
+  }
   
   const  handleAddToCart = (item) => {
-    let id = cart.length + 1;
-
     const cartItem = {
-      id: id,
+      id : cart.length + 1,
       itemId: item.id,
       name: item.name,
       price: item.price,
       description: item.description,
     };
     setCart((prevCart) => [...prevCart, cartItem]);
+    storeCart();
+    console.log(cart);
   }
 
   const storeCart = async () => {
@@ -80,21 +86,17 @@ const Home = () => {
           return (
             <View style={styles.galleryContainer}>
               <View>
-                <Pressable onPress={() => navigation.navigate("Details")}>
-                  <ImageBackground style={styles.galleryItem} source={getImage(item.id)}>
-                    <Pressable onPress={() => {
-                        handleAddToCart(item);
-                        storeCart();
-                        console.log(cart);
-                      }}> 
-                      {/* add item to the cart */}
-                      <Image style={styles.addButton}source={addButton}/>
-                    </Pressable>
-                  </ImageBackground> 
+                <ImageBackground style={styles.galleryItem} source={getImage(item.id)}>
+                  <Pressable onPress={() => handleAddToCart(item)}> 
+                    {/* add item to the cart */}
+                    <Image style={styles.addButton}source={addButton}/>
+                  </Pressable>
+                </ImageBackground> 
+              <Pressable onPress={() => handlePress(item.id)}>
+                <Text style={styles.itemName}>{item.name}</Text>
+                <Text style={styles.itemDescription}>{item.description}</Text>
+                <Text style={styles.itemPrice}>{item.price}</Text>
               </Pressable>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemDescription}>{item.description}</Text>
-              <Text style={styles.itemPrice}>{item.price}</Text>
               </View>
             </View>
           )
