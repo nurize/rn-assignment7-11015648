@@ -45,7 +45,11 @@ Data passed to the `DetailsScreen` component via `route.params` includes:
 ## Screenshots of the pages
 
 ![Screenshot 1](screenshot_1.jpg)
+
 ![Screenshot 2](screenshot_2.jpg)
+
 ![Screenshot 3](screenshot_3.jpg)
+
 ![Screenshot 4](screenshot_4.jpg)
+
 ![Screenshot 5](screenshot_5.jpg)
