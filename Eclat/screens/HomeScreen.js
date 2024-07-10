@@ -2,7 +2,7 @@ import { Text, View, Image, StatusBar, ImageBackground, Pressable, SafeAreaView 
 import styles from '../styles';
 import OpenDrawerButton from '../components/OpenDrawerButton';
 import { FlatList } from 'react-native-gesture-handler';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { GalleryContext } from '../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -19,24 +19,42 @@ const Home = () => {
 
   const [numColumns, setNumColumns] = useState(2);
 
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const cartJson = await AsyncStorage.getItem('cart');
+        if (cartJson !== null) {
+          setCart(JSON.parse(cartJson));
+        }
+      } catch (error) {
+        console.error('Cart loading error:', error);
+      }
+    };
+    loadCart();
+  }, []);
+
   const handlePress = (ItemImage, itemDescription, itemTitle, itemPrice, ItemCategory) => {
     navigation.navigate("Details", { image: ItemImage, description: itemDescription, name: itemTitle, price: itemPrice, category: ItemCategory });
   }
 
-  const handleAddToCart = (item) => {
+  const handleAddToCart = (itemId, itemImage, itemTitle, itemCategory, itemPrice) => {
     const cartItem = {
       id: cart.length + 1,
-      itemId: item.id,
-      name: item.name,
-      price: item.price,
-      description: item.description,
+      itemId: itemId,
+      name: itemCategory, // Use item.title instead of item.name
+      price: itemPrice,
+      description: itemTitle,
+      image: itemImage,
     };
-    setCart((prevCart) => [...prevCart, cartItem]);
-    storeCart();
+    setCart((prevCart) => {
+      const newCart = [...prevCart, cartItem];
+      storeCart(newCart);
+      return newCart;
+    });
     console.log(cart);
   }
 
-  const storeCart = async () => {
+  const storeCart = async (cart) => {
     try {
       const cartJson = JSON.stringify(cart);
       await AsyncStorage.setItem('cart', cartJson);
@@ -55,7 +73,7 @@ const Home = () => {
           <Pressable>
             <Image style={styles.headerIcon} source={SearchButton} />
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("Cart")}>
+          <Pressable onPress={() => navigation.navigate("Cart", { cartItems: cart })}>
             <Image style={styles.headerIcon} source={ShoppingBag} />
           </Pressable>
         </View>
@@ -84,7 +102,7 @@ const Home = () => {
               <View style={styles.galleryContainer}>
                 <View style={styles.galleryItemContainer}>
                   <ImageBackground style={styles.galleryItem} source={{ uri: item.image }}>
-                    <Pressable onPress={() => handleAddToCart(item)}>
+                    <Pressable onPress={() => handleAddToCart(item.id, item.image, item.title, item.category, item.price)}>
                       <Image style={styles.addButton} source={addButton} />
                     </Pressable>
                   </ImageBackground>

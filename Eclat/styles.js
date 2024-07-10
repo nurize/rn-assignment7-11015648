@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     height: 35,
     paddingTop: 10,
   },
+  logo: {
+    marginLeft: 140,
+  },
   subHeaderText: {
     flexDirection: 'row',
     gap: 5,
@@ -113,6 +116,26 @@ const styles = StyleSheet.create({
     paddingVertical: 20 ,
     flexWrap: 'wrap'
   }, 
+  total: {
+    fontSize: 20,
+    letterSpacing: 5,
+    color: '#808080', 
+    alignSelf: 'center',
+  },
+  checkoutButton: {
+    backgroundColor: 'black',
+    flexDirection: "row",
+    height: 90, 
+    width: '100%', 
+    paddingHorizontal: 0,
+    alignItems: 'center',
+    justifyContent: 'center', 
+    gap: 20,
+  }, 
+  checkoutText: {
+    color: '#FFFFFF',
+    fontSize: 24
+  }
 });
 
 export default styles;
